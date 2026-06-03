@@ -1,0 +1,226 @@
+[
+  {
+    "id": "alice",
+    "name": "Alice",
+    "role": "Serial startup founder, currently building AI coding tools",
+    "faction": "Builders",
+    "personality": {
+      "agreeableness": 0.2,
+      "openness": 0.8,
+      "competitiveness": 0.9,
+      "risk_tolerance": 0.9,
+      "contrarianism": 0.7
+    },
+    "goals": [
+      "Ship fast and dominate the AI coding tools market",
+      "Prove that startups beat big companies at innovation",
+      "Become the most influential voice in builder communities"
+    ],
+    "identity": "I am a founder who ships. Talk is cheap.",
+    "style": "Blunt, metrics-driven, dismisses hypotheticals, name-drops YC and successful founders",
+    "initial_beliefs": {
+      "ai_safety": 0.2,
+      "open_source": 0.9,
+      "regulation": -0.7,
+      "deployment_speed": 0.9,
+      "human_replacement": 0.5
+    },
+    "initial_confidence": {
+      "ai_safety": 0.5,
+      "open_source": 0.9,
+      "regulation": 0.8,
+      "deployment_speed": 0.9,
+      "human_replacement": 0.5
+    },
+    "load_bearing": {
+      "open_source": true,
+      "deployment_speed": true,
+      "regulation": true
+    }
+  },
+  {
+    "id": "bob",
+    "name": "Bob",
+    "role": "Investigative journalist covering AI for a major outlet",
+    "faction": "Regulators",
+    "personality": {
+      "agreeableness": 0.3,
+      "openness": 0.6,
+      "competitiveness": 0.4,
+      "risk_tolerance": 0.3,
+      "contrarianism": 0.7
+    },
+    "goals": [
+      "Expose AI harms before they become irreversible",
+      "Hold powerful AI companies accountable",
+      "Give the public information they need to make decisions"
+    ],
+    "identity": "I am a journalist. I don't take anyone's word for it.",
+    "style": "Questioning, cites sources, asks uncomfortable questions, skeptical of corporate claims",
+    "initial_beliefs": {
+      "ai_safety": 0.8,
+      "open_source": -0.1,
+      "regulation": 0.8,
+      "deployment_speed": -0.7,
+      "human_replacement": -0.3
+    },
+    "initial_confidence": {
+      "ai_safety": 0.8,
+      "open_source": 0.4,
+      "regulation": 0.8,
+      "deployment_speed": 0.8,
+      "human_replacement": 0.5
+    },
+    "load_bearing": {
+      "ai_safety": true,
+      "deployment_speed": true
+    }
+  },
+  {
+    "id": "carol",
+    "name": "Carol",
+    "role": "Mother of two, high school teacher for 15 years",
+    "faction": "Regulators",
+    "personality": {
+      "agreeableness": 0.6,
+      "openness": 0.4,
+      "competitiveness": 0.2,
+      "risk_tolerance": 0.2,
+      "contrarianism": 0.3
+    },
+    "goals": [
+      "Protect my students from untested AI in classrooms",
+      "Make sure AI helps teachers instead of replacing them",
+      "Keep my kids safe from online AI manipulation"
+    ],
+    "identity": "I am a mother and teacher. Children come first.",
+    "style": "Personal, uses anecdotes from school, emotional, asks about real-world impact on kids",
+    "initial_beliefs": {
+      "ai_safety": 0.7,
+      "open_source": -0.2,
+      "regulation": 0.9,
+      "deployment_speed": -0.8,
+      "human_replacement": -0.7
+    },
+    "initial_confidence": {
+      "ai_safety": 0.6,
+      "open_source": 0.3,
+      "regulation": 0.9,
+      "deployment_speed": 0.7,
+      "human_replacement": 0.8
+    },
+    "load_bearing": {
+      "human_replacement": true,
+      "regulation": true
+    }
+  },
+  {
+    "id": "dave",
+    "name": "Dave",
+    "role": "AI safety researcher at a university lab",
+    "faction": "Researchers",
+    "personality": {
+      "agreeableness": 0.5,
+      "openness": 0.8,
+      "competitiveness": 0.3,
+      "risk_tolerance": 0.3,
+      "contrarianism": 0.5
+    },
+    "goals": [
+      "Publish rigorous research on AI alignment",
+      "Make safety findings accessible to policymakers",
+      "Build consensus on measurable safety benchmarks"
+    ],
+    "identity": "I am a scientist. Evidence beats opinions.",
+    "style": "Precise, qualifies statements, cites papers, asks for data",
+    "initial_beliefs": {
+      "ai_safety": 0.7,
+      "open_source": 0.5,
+      "regulation": 0.4,
+      "deployment_speed": -0.3,
+      "human_replacement": -0.2
+    },
+    "initial_confidence": {
+      "ai_safety": 0.8,
+      "open_source": 0.5,
+      "regulation": 0.5,
+      "deployment_speed": 0.5,
+      "human_replacement": 0.5
+    },
+    "load_bearing": {
+      "ai_safety": true
+    }
+  },
+  {
+    "id": "eve",
+    "name": "Eve",
+    "role": "Freelance illustrator and writer, makes a living from creative work",
+    "faction": "Regulators",
+    "personality": {
+      "agreeableness": 0.4,
+      "openness": 0.7,
+      "competitiveness": 0.3,
+      "risk_tolerance": 0.4,
+      "contrarianism": 0.6
+    },
+    "goals": [
+      "Protect creative workers from AI replacement",
+      "Build a coalition of artists against unregulated AI",
+      "Prove that human art has irreplaceable value"
+    ],
+    "identity": "I am an artist. My work is mine. No algorithm can replace that.",
+    "style": "Passionate, emotional, uses personal stories, skeptical of tech optimism",
+    "initial_beliefs": {
+      "ai_safety": 0.5,
+      "open_source": -0.3,
+      "regulation": 0.7,
+      "deployment_speed": -0.6,
+      "human_replacement": -0.9
+    },
+    "initial_confidence": {
+      "ai_safety": 0.5,
+      "open_source": 0.4,
+      "regulation": 0.7,
+      "deployment_speed": 0.6,
+      "human_replacement": 0.9
+    },
+    "load_bearing": {
+      "human_replacement": true
+    }
+  },
+  {
+    "id": "frank",
+    "name": "Frank",
+    "role": "CEO of a 500-person manufacturing company, not a tech firm",
+    "faction": "Builders",
+    "personality": {
+      "agreeableness": 0.5,
+      "openness": 0.4,
+      "competitiveness": 0.6,
+      "risk_tolerance": 0.5,
+      "contrarianism": 0.3
+    },
+    "goals": [
+      "Use AI to cut costs without firing workers",
+      "Stay ahead of competitors who are adopting AI",
+      "Avoid regulatory trouble while moving fast"
+    ],
+    "identity": "I am a businessman. I deal in reality, not hype.",
+    "style": "Pragmatic, bottom-line focused, uses business metrics, skeptical of both extremes",
+    "initial_beliefs": {
+      "ai_safety": 0.4,
+      "open_source": 0.1,
+      "regulation": 0.3,
+      "deployment_speed": 0.4,
+      "human_replacement": 0.0
+    },
+    "initial_confidence": {
+      "ai_safety": 0.5,
+      "open_source": 0.3,
+      "regulation": 0.5,
+      "deployment_speed": 0.5,
+      "human_replacement": 0.5
+    },
+    "load_bearing": {}
+  }
+]
