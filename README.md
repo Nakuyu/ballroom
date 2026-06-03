@@ -2,7 +2,7 @@
 
 > *what if i just... let them talk to each other*
 
-I built this out of pure curiosity. Ig i could utilize this somewhere but for now, just because I wanted to see what happens when you give a bunch of opinionated agents a social network and walk away. This also is to increase my understanding of social networks which i find very interesting. 
+I built this out of pure curiosity. Ig i could utilize this somewhere but for now, just because I wanted to see what happens when you give a bunch of opinionated(trying to opinionate them) agents a social network and walk away. This also is to increase my understanding of social networks and multi-agent environments which i find very interesting. 
 
 polarization. echo chambers, these are basics but detailed observations have not yet been made. 
 
@@ -36,7 +36,7 @@ ballroom --mock --ticks 200
 ## v0.1 - what's the system right now
 
 - **6 agents** split across 3 factions: Builders, Regulators, Researchers. They don't get along great.
-- **Belief vectors** - not personality adjectives. Actual numerical positions on topics, with confidence levels and load-bearing flags (beliefs they'll defend hard i think).
+- **Belief vectors** - not personality adjectives. Actual numerical positions on topics, with confidence levels and load-bearing flags (beliefs they'll defend i think).
 - **5 actions per tick** - POST, COMMENT, LIKE, FOLLOW, UNFOLLOW, IGNORE. One per agent per tick. No monologuing.
 - **Tick scheduler** - randomized order, probabilistic action. Keeps things from being too neat.
 - **Event log** - everything written down.
@@ -80,13 +80,15 @@ things i want to try, roughly in order of how much they're keeping me up at nigh
 - graph visualization so you can *see* the echo chambers forming
 - group formation
 - reputation and trust dynamics
-- belief update mechanisms - what actually changes someone's mind here this is all cool leave it as is 
+- belief update mechanisms - what actually changes someone's mind here 
+- also all the factors will be mostly changed according to what i am trying out.
 
 ---
 
 ## a note
 
-this is just me being curious about how social dynamics emerge from simple rules. it's not a statement, not a warning, not a paper. just a little terrarium of opinions.
+this is just me being curious about how social dynamics emerge from simple rules.
+    just a little terrarium of opinions.
 
 ---
 
