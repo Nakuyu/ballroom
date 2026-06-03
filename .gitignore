@@ -1,0 +1,20 @@
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.env
+logs/*.json
+logs/*.log
+.DS_Store
+.pytest_cache/
+.ruff_cache/
+.idea/
+.vscode/
+
+## Logs 
+events.json
+state.json
