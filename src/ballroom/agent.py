@@ -42,6 +42,8 @@ class Agent(BaseModel):
     post_count: int = 0
     comment_count: int = 0
     like_count: int = 0
+    memory_decay_rate: float = 0.99
+    memory_min_importance: float = 0.1
 
     def remember(
         self,
@@ -86,6 +88,14 @@ class Agent(BaseModel):
 
     def recent_memories(self, limit: int = 5) -> list[Memory]:
         return sorted(self.memory, key=lambda m: m.timestamp, reverse=True)[:limit]
+
+    def decay_memory(self) -> None:
+        if not self.memory:
+            return
+        for mem in self.memory:
+            rate = 0.995 if mem.importance >= 0.5 else self.memory_decay_rate
+            mem.importance *= rate
+        self.memory = [m for m in self.memory if m.importance >= self.memory_min_importance]
 
     def persona_prompt(self) -> str:
         personality = ", ".join(

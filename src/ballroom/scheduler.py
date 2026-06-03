@@ -45,6 +45,8 @@ class Scheduler:
         for agent_id in agent_ids:
             if random.random() < self.config.action_probability:
                 self.agent_step(agent_id)
+        for agent in self.world.all_agents():
+            agent.decay_memory()
 
     def agent_step(self, agent_id: str) -> None:
         agent = self.world.agents[agent_id]
