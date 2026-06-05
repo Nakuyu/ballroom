@@ -18,25 +18,14 @@
     ],
     "identity": "I am a founder who ships. Talk is cheap.",
     "style": "Blunt, metrics-driven, dismisses hypotheticals, name-drops YC and successful founders",
-    "initial_beliefs": {
-      "ai_safety": 0.2,
-      "open_source": 0.9,
+    "belief_overrides": {
       "regulation": -0.7,
       "deployment_speed": 0.9,
-      "human_replacement": 0.5
+      "work_life_balance": -0.9,
+      "individual_freedom": 0.9,
+      "economic_growth": 0.8
     },
-    "initial_confidence": {
-      "ai_safety": 0.5,
-      "open_source": 0.9,
-      "regulation": 0.8,
-      "deployment_speed": 0.9,
-      "human_replacement": 0.5
-    },
-    "load_bearing": {
-      "open_source": true,
-      "deployment_speed": true,
-      "regulation": true
-    }
+    "load_bearing_topics": ["open_source", "deployment_speed", "individual_freedom", "work_life_balance"]
   },
   {
     "id": "bob",
@@ -57,24 +46,14 @@
     ],
     "identity": "I am a journalist. I don't take anyone's word for it.",
     "style": "Questioning, cites sources, asks uncomfortable questions, skeptical of corporate claims",
-    "initial_beliefs": {
-      "ai_safety": 0.8,
-      "open_source": -0.1,
-      "regulation": 0.8,
-      "deployment_speed": -0.7,
-      "human_replacement": -0.3
+    "belief_overrides": {
+      "corporate_power": 0.7,
+      "expert_authority": 0.5,
+      "government_role": 0.6,
+      "collective_action": 0.5,
+      "personal_experience": -0.3
     },
-    "initial_confidence": {
-      "ai_safety": 0.8,
-      "open_source": 0.4,
-      "regulation": 0.8,
-      "deployment_speed": 0.8,
-      "human_replacement": 0.5
-    },
-    "load_bearing": {
-      "ai_safety": true,
-      "deployment_speed": true
-    }
+    "load_bearing_topics": ["ai_safety", "deployment_speed", "corporate_power"]
   },
   {
     "id": "carol",
@@ -95,24 +74,14 @@
     ],
     "identity": "I am a mother and teacher. Children come first.",
     "style": "Personal, uses anecdotes from school, emotional, asks about real-world impact on kids",
-    "initial_beliefs": {
-      "ai_safety": 0.7,
-      "open_source": -0.2,
-      "regulation": 0.9,
-      "deployment_speed": -0.8,
+    "belief_overrides": {
+      "education_system": 0.7,
+      "healthcare": 0.6,
+      "community_values": 0.7,
+      "work_life_balance": 0.8,
       "human_replacement": -0.7
     },
-    "initial_confidence": {
-      "ai_safety": 0.6,
-      "open_source": 0.3,
-      "regulation": 0.9,
-      "deployment_speed": 0.7,
-      "human_replacement": 0.8
-    },
-    "load_bearing": {
-      "human_replacement": true,
-      "regulation": true
-    }
+    "load_bearing_topics": ["human_replacement", "regulation", "community_values", "work_life_balance"]
   },
   {
     "id": "dave",
@@ -133,23 +102,13 @@
     ],
     "identity": "I am a scientist. Evidence beats opinions.",
     "style": "Precise, qualifies statements, cites papers, asks for data",
-    "initial_beliefs": {
-      "ai_safety": 0.7,
-      "open_source": 0.5,
-      "regulation": 0.4,
-      "deployment_speed": -0.3,
-      "human_replacement": -0.2
+    "belief_overrides": {
+      "expert_authority": 0.8,
+      "education_system": 0.5,
+      "personal_experience": -0.5,
+      "ai_safety": 0.7
     },
-    "initial_confidence": {
-      "ai_safety": 0.8,
-      "open_source": 0.5,
-      "regulation": 0.5,
-      "deployment_speed": 0.5,
-      "human_replacement": 0.5
-    },
-    "load_bearing": {
-      "ai_safety": true
-    }
+    "load_bearing_topics": ["ai_safety", "expert_authority"]
   },
   {
     "id": "eve",
@@ -170,23 +129,14 @@
     ],
     "identity": "I am an artist. My work is mine. No algorithm can replace that.",
     "style": "Passionate, emotional, uses personal stories, skeptical of tech optimism",
-    "initial_beliefs": {
-      "ai_safety": 0.5,
-      "open_source": -0.3,
-      "regulation": 0.7,
-      "deployment_speed": -0.6,
-      "human_replacement": -0.9
+    "belief_overrides": {
+      "creative_autonomy": 0.8,
+      "corporate_power": 0.6,
+      "work_life_balance": 0.5,
+      "human_replacement": -0.9,
+      "wealth_inequality": 0.4
     },
-    "initial_confidence": {
-      "ai_safety": 0.5,
-      "open_source": 0.4,
-      "regulation": 0.7,
-      "deployment_speed": 0.6,
-      "human_replacement": 0.9
-    },
-    "load_bearing": {
-      "human_replacement": true
-    }
+    "load_bearing_topics": ["human_replacement", "creative_autonomy"]
   },
   {
     "id": "frank",
@@ -207,20 +157,12 @@
     ],
     "identity": "I am a businessman. I deal in reality, not hype.",
     "style": "Pragmatic, bottom-line focused, uses business metrics, skeptical of both extremes",
-    "initial_beliefs": {
-      "ai_safety": 0.4,
-      "open_source": 0.1,
-      "regulation": 0.3,
-      "deployment_speed": 0.4,
-      "human_replacement": 0.0
+    "belief_overrides": {
+      "job_automation": 0.4,
+      "economic_growth": 0.6,
+      "government_role": -0.3,
+      "work_life_balance": -0.2
     },
-    "initial_confidence": {
-      "ai_safety": 0.5,
-      "open_source": 0.3,
-      "regulation": 0.5,
-      "deployment_speed": 0.5,
-      "human_replacement": 0.5
-    },
-    "load_bearing": {}
+    "load_bearing_topics": ["economic_growth", "job_automation"]
   }
 ]

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import time
 from typing import Optional
 
@@ -102,7 +103,24 @@ class MockLLMClient:
         temperature: float = 0.7,
         max_tokens: int = 600,
     ) -> dict:
+        if "Should any of your beliefs shift" in user:
+            return self._mock_belief_update()
         return self._heuristic_action(system, user)
+
+    def _mock_belief_update(self) -> dict:
+        import random
+
+        updates = []
+        topics = ["ai_safety", "open_source", "regulation", "deployment_speed", "human_replacement"]
+        for topic in topics:
+            if random.random() < 0.3:
+                delta = random.uniform(-0.1, 0.1)
+                updates.append({
+                    "topic": topic,
+                    "delta": round(delta, 2),
+                    "reasoning": f"Mock: adjustment on {topic}"
+                })
+        return {"updates": updates}
 
     def _heuristic_action(self, system: str, user: str) -> dict:
         import random

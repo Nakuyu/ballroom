@@ -9,6 +9,7 @@ from pathlib import Path
 
 from .agent import Agent
 from .belief import BeliefVector
+from .belief_generator import generate_beliefs, load_topics, load_faction_defaults
 from .config import Config
 from .llm import LLMClient, MockLLMClient
 from .scheduler import Scheduler
@@ -16,19 +17,17 @@ from .world import World
 from .analytics import print_metrics
 
 
-def load_agents(path: Path) -> list[Agent]:
+def load_agents(path: Path, data_dir: Path | None = None) -> list[Agent]:
+    if data_dir is None:
+        data_dir = path.parent
+
+    topics = load_topics(data_dir)
+    faction_defaults = load_faction_defaults(data_dir)
+
     with open(path) as f:
         data = json.load(f)
     agents: list[Agent] = []
     for entry in data:
-        beliefs = BeliefVector()
-        for topic, pos in entry.get("initial_beliefs", {}).items():
-            beliefs.set(
-                topic,
-                float(pos),
-                confidence=float(entry.get("initial_confidence", {}).get(topic, 0.5)),
-                load_bearing=bool(entry.get("load_bearing", {}).get(topic, False)),
-            )
         agent = Agent(
             id=entry["id"],
             name=entry["name"],
@@ -38,7 +37,15 @@ def load_agents(path: Path) -> list[Agent]:
             goals=entry.get("goals", []),
             identity=entry.get("identity", ""),
             style=entry.get("style", "measured"),
-            beliefs=beliefs,
+            belief_overrides=entry.get("belief_overrides", {}),
+            load_bearing_topics=entry.get("load_bearing_topics", []),
+        )
+        agent.beliefs = generate_beliefs(
+            faction=agent.faction,
+            overrides=agent.belief_overrides,
+            load_bearing=agent.load_bearing_topics,
+            faction_defaults=faction_defaults,
+            topics=topics,
         )
         agents.append(agent)
     return agents
@@ -110,7 +117,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"error: agents file not found: {agents_path}", file=sys.stderr)
         return 1
 
-    agents = load_agents(agents_path)
+    data_dir = agents_path.parent
+    agents = load_agents(agents_path, data_dir)
     world = World(agents)
     seed_follows(world, density=0.4)
 
@@ -131,6 +139,7 @@ def main(argv: list[str] | None = None) -> int:
     save_events(world, log_path / "events.json")
     save_state(world, log_path / "state.json")
     print(f"\nLogs written to {log_path}/")
+    sys.stdout.flush()
     return 0
 
 

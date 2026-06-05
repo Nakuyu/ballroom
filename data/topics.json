@@ -1,0 +1,116 @@
+{
+  "topics": [
+    {
+      "name": "wealth_inequality",
+      "category": "economic",
+      "description": "The gap between rich and poor is growing",
+      "spectrum_left": "inequality is a crisis that demands action",
+      "spectrum_right": "inequality drives innovation and opportunity"
+    },
+    {
+      "name": "job_automation",
+      "category": "economic",
+      "description": "Technology is replacing human workers",
+      "spectrum_left": "automation destroys jobs and communities",
+      "spectrum_right": "automation creates new opportunities"
+    },
+    {
+      "name": "corporate_power",
+      "category": "economic",
+      "description": "Large corporations have too much influence",
+      "spectrum_left": "corporations are exploiting workers and society",
+      "spectrum_right": "corporations drive progress and prosperity"
+    },
+    {
+      "name": "economic_growth",
+      "category": "economic",
+      "description": "Economic growth should be the primary goal",
+      "spectrum_left": "growth matters above all else",
+      "spectrum_right": "growth has limits and costs"
+    },
+    {
+      "name": "government_role",
+      "category": "political",
+      "description": "Government should play a larger role in society",
+      "spectrum_left": "government should do more to help people",
+      "spectrum_right": "government is the problem, not the solution"
+    },
+    {
+      "name": "individual_freedom",
+      "category": "political",
+      "description": "Individual rights should take precedence over collective needs",
+      "spectrum_left": "my body, my choice — government out of my life",
+      "spectrum_right": "society needs rules to function"
+    },
+    {
+      "name": "collective_action",
+      "category": "political",
+      "description": "We should work together to solve shared problems",
+      "spectrum_left": "we're in this together — collective action works",
+      "spectrum_right": "every person for themselves — personal responsibility"
+    },
+    {
+      "name": "education_system",
+      "category": "social",
+      "description": "The education system needs reform",
+      "spectrum_left": "schools are broken and outdated",
+      "spectrum_right": "schools work fine — stop blaming teachers"
+    },
+    {
+      "name": "healthcare",
+      "category": "social",
+      "description": "Healthcare should be accessible to all",
+      "spectrum_left": "healthcare is a human right",
+      "spectrum_right": "healthcare is a service, not a right"
+    },
+    {
+      "name": "community_values",
+      "category": "social",
+      "description": "Community bonds are important for society",
+      "spectrum_left": "community matters — we need connection",
+      "spectrum_right": "individual choice matters more than community"
+    },
+    {
+      "name": "work_life_balance",
+      "category": "social",
+      "description": "Work-life balance is more important than career success",
+      "spectrum_left": "hustle culture is toxic — life comes first",
+      "spectrum_right": "hard work and sacrifice lead to success"
+    },
+    {
+      "name": "creative_autonomy",
+      "category": "cultural",
+      "description": "Artists should have control over their work",
+      "spectrum_left": "art should be free and accessible",
+      "spectrum_right": "artists deserve to be paid for their work"
+    },
+    {
+      "name": "traditional_values",
+      "category": "cultural",
+      "description": "Traditional values provide stability",
+      "spectrum_left": "tradition grounds us — don't throw it away",
+      "spectrum_right": "tradition holds us back — embrace change"
+    },
+    {
+      "name": "social_change",
+      "category": "cultural",
+      "description": "Society should evolve and adapt",
+      "spectrum_left": "change is coming — adapt or get left behind",
+      "spectrum_right": "slow down — not all change is progress"
+    },
+    {
+      "name": "expert_authority",
+      "category": "evidence",
+      "description": "Experts and scientists should guide policy",
+      "spectrum_left": "trust the experts — they know best",
+      "spectrum_right": "experts are biased and out of touch"
+    },
+    {
+      "name": "personal_experience",
+      "category": "evidence",
+      "description": "Personal experience is valid evidence",
+      "spectrum_left": "my experience matters — I know what I've seen",
+      "spectrum_right": "anecdotes aren't data — show me the numbers"
+    }
+  ]
+}

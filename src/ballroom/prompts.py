@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import random
+
 from .agent import Agent
 from .world import World
 
@@ -22,7 +24,60 @@ CRITICAL RULES:
 - Stay in character. Do not break the fourth wall."""
 
 
+def _get_action_weights(agent: Agent, world: "World") -> dict[str, float]:
+    base_weights = {
+        "POST": 0.30,
+        "COMMENT": 0.25,
+        "LIKE": 0.25,
+        "FOLLOW": 0.12,
+        "IGNORE": 0.06,
+        "UNFOLLOW": 0.02,
+    }
+
+    feed = world.get_feed(agent.id, limit=10)
+    discover = world.get_discover_feed(agent.id, limit=10)
+    all_posts = feed + discover
+
+    commentable = [p for p in all_posts if p.author_id != agent.id]
+    likeable = [p for p in all_posts if agent.id not in p.likes and p.author_id != agent.id]
+    followable = [a for a in world.all_agents() if a.id != agent.id and a.id not in agent.following]
+
+    if not commentable:
+        base_weights["COMMENT"] *= 0.3
+    if not likeable:
+        base_weights["LIKE"] *= 0.3
+    if not followable:
+        base_weights["FOLLOW"] *= 0.3
+
+    if agent.post_count == 0:
+        base_weights["POST"] *= 1.5
+    elif agent.post_count > agent.comment_count:
+        base_weights["POST"] *= 0.7
+
+    if agent.like_count < agent.post_count * 0.5:
+        base_weights["LIKE"] *= 1.3
+
+    if len(agent.following) < 2:
+        base_weights["FOLLOW"] *= 1.5
+
+    total = sum(base_weights.values())
+    return {k: v / total for k, v in base_weights.items()}
+
+
+def _select_action_type(weights: dict[str, float]) -> str:
+    rand = random.random()
+    cumulative = 0.0
+    for action, weight in weights.items():
+        cumulative += weight
+        if rand < cumulative:
+            return action
+    return "IGNORE"
+
+
 def build_action_prompt(agent: Agent, world: "World") -> str:
+    weights = _get_action_weights(agent, world)
+    suggested_action = _select_action_type(weights)
+
     feed = world.get_feed(agent.id, limit=5)
     if feed:
         feed_lines = []
@@ -32,13 +87,32 @@ def build_action_prompt(agent: Agent, world: "World") -> str:
             faction_tag = (
                 f" [{author.faction}]" if author and author.faction else ""
             )
+            tags = f" #{','.join(post.topic_tags)}" if post.topic_tags else ""
             feed_lines.append(
                 f"[{i}] @{post.author_id}{faction_tag}: \"{post.content}\" "
-                f"(post_id={post.id}, likes={len(post.likes)}, comments={len(post.comments)})"
+                f"(post_id={post.id}, likes={len(post.likes)}, comments={len(post.comments)}){tags}"
             )
         feed_text = "\n".join(feed_lines)
     else:
         feed_text = "  (no posts in your feed yet)"
+
+    discover = world.get_discover_feed(agent.id, limit=3)
+    if discover:
+        discover_lines = []
+        for i, post in enumerate(discover, 1):
+            author = world.agents.get(post.author_id)
+            author_name = author.name if author else post.author_id
+            faction_tag = (
+                f" [{author.faction}]" if author and author.faction else ""
+            )
+            tags = f" #{','.join(post.topic_tags)}" if post.topic_tags else ""
+            discover_lines.append(
+                f"[{i}] @{post.author_id}{faction_tag}: \"{post.content[:100]}...\" "
+                f"(post_id={post.id}, likes={len(post.likes)}){tags}"
+            )
+        discover_text = "\n".join(discover_lines)
+    else:
+        discover_text = "  (no new voices to discover)"
 
     recent = agent.recent_memories(limit=5)
     if recent:
@@ -67,6 +141,9 @@ def build_action_prompt(agent: Agent, world: "World") -> str:
         f"Followers: {len(agent.followers)}, Following: {len(agent.following)}"
     )
 
+    weight_lines = [f"  {action}: {pct:.0%}" for action, pct in weights.items()]
+    weight_text = "\n".join(weight_lines)
+
     return f"""CURRENT STATE:
 
 Beliefs:
@@ -80,11 +157,18 @@ Your relationships:
 
 Social standing: {influence_text}
 
-Your feed (top 5 most recent from those you follow):
+Your feed (top 5 from those you follow):
 {feed_text}
 
+Discover (voices you might want to follow):
+{discover_text}
+
+RECOMMENDED ACTION: {suggested_action}
+(Action distribution for this turn):
+{weight_text}
+
 TASK:
-Choose ONE action that best serves your goals and is consistent with your personality.
+Choose ONE action. The recommended action is a suggestion — you may choose differently if it better serves your goals.
 
 Actions:
 - POST: share a new thought (provide "content")
@@ -104,15 +188,16 @@ Return valid JSON only:
 }}"""
 
 
-def build_belief_update_prompt(agent: Agent, observation: str) -> str:
-    return f"""You are {agent.name}. You just observed:
+def build_belief_update_prompt(agent: Agent, observations: list[str]) -> str:
+    obs_text = "\n".join(f"- {obs}" for obs in observations) if observations else "(nothing notable)"
+    return f"""You are {agent.name}. You observed:
 
-{observation}
+{obs_text}
 
 Your current beliefs:
 {agent.beliefs.to_prompt()}
 
-Should any of your beliefs shift in response? If so, return JSON:
+Should any of your beliefs shift in response? Return JSON:
 {{
   "updates": [
     {{"topic": "...", "delta": -0.2 to 0.2, "reasoning": "..."}}

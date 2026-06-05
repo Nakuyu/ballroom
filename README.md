@@ -2,8 +2,8 @@
 
 > *what if i just... let them talk to each other*
 
-I built this out of pure curiosity. Ig i could utilize this somewhere but for now, just because I wanted to see what happens when you give a bunch of opinionated(trying to opinionate them) agents a social network and walk away. This also is to increase my understanding of social networks and multi-agent environments which i find very interesting. 
-
+I built this out of pure curiosity. just because I wanted to see what happens when you give a bunch of opinionated(trying to opinionate them) agents a social network. 
+This also is to increase my understanding of social networks and multi-agent environments which i find very interesting. 
 polarization. echo chambers, these are basics but detailed observations have not yet been made. 
 
 ---
@@ -12,7 +12,6 @@ polarization. echo chambers, these are basics but detailed observations have not
 
 Agents each with beliefs, goals, a personality they didn't choose wake up every tick, look at their feed, and decide what to do. Post something. Agree with someone. Quietly unfollow a person they used to like. The kind of stuff that happens in a social network, basically.
 
-You watch it happen. That's the whole thing.
 
 ```bash
 # install
@@ -40,7 +39,7 @@ ballroom --mock --ticks 200
 - **5 actions per tick** - POST, COMMENT, LIKE, FOLLOW, UNFOLLOW, IGNORE. One per agent per tick. No monologuing.
 - **Tick scheduler** - randomized order, probabilistic action. Keeps things from being too neat.
 - **Event log** - everything written down.
-- **Analytics** - polarization scores, influence rankings (followers × 0.5 + engagement × 0.1), echo chamber coefficient.
+- **Analytics** - polarization scores, influence rankings, echo chamber coefficient.
 - **Mock mode** - for when you want to poke around without burning through tokens. (sort of trial rn not polished)
 
 ---
@@ -52,20 +51,11 @@ For each agent (shuffled order, keeps it honest):
 1. Build their context - who they are, what they believe, what's on their feed, who they trust, and what they remember (memory exists, but it fades)
 2. Ask the LLM: *what do you do?* (JSON back, one action)
 3. Parse it
-4. Apply it to the world - posts appear, relationships shift
-5. Agent remembers what happened, updates how they feel about people
+4. Apply it to the feed
+5. Agent remembers what happened, updates their interactions with people
 
-The one-action-per-tick constraint is load-bearing. It forces bounded attention. Real social dynamics, not infinite meta-discussion (no infinite monologue).
+The one-action-per-tick constraint is load-bearing. It forces bounded attention. Somewhat real(not yet) social dynamics, not infinite meta-discussion (no infinite monologue).
 
----
-
-## design principles for this 
-
-1. **Beliefs are state, not personality** - instead of saying "Someone is skeptical", we give their actual numerical positions on stuff i.e. ai_safety: +0.8, regulation: +0.7. These numbers shift based on what they see. Personality describes who you are; beliefs describe what you think. Both matter, but they're different things.
-2. **Goals drive behavior** - an agent with "ship fast and dominate the market" does more interesting things than an agent with "is competitive." Give them something to optimize for, and it should be interesting, also here we're trying to simulate natural social behaviour to some extent so lets see how it goes. 
-3. **Agreement costs something** - if agreeing is free, everyone agrees. That's a positivity seminar, not a society. Here, agreeing means shifting your beliefs, which means losing part of your identity. So agents think twice.
-4. **Perception is asymmetric** - you only see posts from people you follow. Two agents looking at the "same" network see completely different feeds. This is how echo chambers form without anyone programming them. (Still in progress not refined)
-5. **One action per tick** - or everyone just talks forever and nothing happens.
 
 ---
 
@@ -85,10 +75,69 @@ things i want to try, roughly in order of how much they're keeping me up at nigh
 
 ---
 
+## decision track
+
+problems we ran into, what we tried, what we're still figuring out.
+ 
+## the sycophancy problem
+ 
+agents agreed with everything. same argument, opposite argument too positive either way. useless for simulating a social network where people actually push back.
+So each agent is given 2-3 load-bearing beliefs they defend (just argue lol) even when challenged, plus competing goals so they have real reasons to disagree. still not perfect but the arguments feel real now tho.
+ 
+---
+ 
+## the memory problem
+ 
+agents forgot everything by many ticks and well kinda got memory loss. decay rate was 0.98 per tick memory half-life of ~34 ticks. changed it to 0.99, which doubles the half-life to ~69 ticks.
+ 
+---
+ 
+## the belief update problem
+ 
+first version new_belief = old_belief × trust × learning_rate × evidence_weight, cranking up the learning rate just caused wild swings instead, 
+direct deltas that is LLM explicitly proposes the amount of change works for now but downside being that it could shift alot,
+so i m thinking of a hybrid approach here where i try to understand the proposed shift by the llm and calculate actual shift according to that 
+so something like actual_delta = proposed_delta * trust_modifier * resistance_modifier , this way controlling the social dynamics sort of. still learning 
+Also theres factions if you notices so the belief base is set by which faction youre i, which is like being born somewhere decides what youre initial beliefs
+will be (How odd no?), but yeah since this is a simulation ill consider either keeping initial factions or somehow will think of a way that people with similar
+belief can form a faction themselves.
+
+---
+ 
+## the topic problem
+ 
+every agent talked about well very few topics, so everyone kept finding common ground. 
+I m expanding the topics as much as i can myself and get some references on topics and make a huge topic list maybe.
+
+---
+ 
+## the echo chamber problem
+ 
+added a global feed that surfaces posts from outside the follow field view but still needs to fixed, weighted by engagement the posts. still tuning the ratio.
+ 
+---
+ 
+## the engagement problem
+ 
+84% of actions were comments,
+follow rate is at 4% - up from zero, so thats good but this needs huge improvements here, i m reading up some established research and will tag it if i pick ideas from them.
+
+---
+ 
+## its all the same
+
+this could happen that the network polarization  might flatten and well it ll be a boring network after a huge number of ticks but i dont want that so i m thinking 
+of something like strong priors resist the change over time and exposure to some extreme position doenst shift the agent belief drastically. 
+Gotta have some precautions
+might need a character layer above the belief system that filters what updates are even allowed.
+ 
+---
+
 ## a note
 
 this is just me being curious about how social dynamics emerge from simple rules.
     just a little terrarium of opinions.
+also Ill appreciate any advice given to me. Thanks for reading
 
 ---
 

@@ -33,6 +33,8 @@ class Agent(BaseModel):
     goals: list[str] = Field(default_factory=list)
     identity: str = ""
     style: str = "measured"
+    belief_overrides: dict[str, float] = Field(default_factory=dict)
+    load_bearing_topics: list[str] = Field(default_factory=list)
     beliefs: BeliefVector = Field(default_factory=BeliefVector)
     memory: list[Memory] = Field(default_factory=list)
     relationships: dict[str, Relationship] = Field(default_factory=dict)
@@ -44,6 +46,26 @@ class Agent(BaseModel):
     like_count: int = 0
     memory_decay_rate: float = 0.99
     memory_min_importance: float = 0.1
+    recent_actions: dict[str, int] = Field(default_factory=dict)
+
+    def can_act(self, action_type: str, target_id: Optional[str] = None, current_tick: int = 0) -> bool:
+        cooldowns = {
+            "comment": 2,
+            "follow": 3,
+            "unfollow": 5,
+            "like": 0,
+            "post": 0,
+        }
+        cooldown = cooldowns.get(action_type, 0)
+        if cooldown == 0:
+            return True
+        key = f"{action_type}:{target_id}" if target_id else action_type
+        last_tick = self.recent_actions.get(key, -999)
+        return (current_tick - last_tick) >= cooldown
+
+    def record_action(self, action_type: str, target_id: Optional[str] = None, current_tick: int = 0) -> None:
+        key = f"{action_type}:{target_id}" if target_id else action_type
+        self.recent_actions[key] = current_tick
 
     def remember(
         self,

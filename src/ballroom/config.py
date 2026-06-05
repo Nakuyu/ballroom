@@ -18,6 +18,7 @@ class Config:
     opencode_model: str
     total_ticks: int
     action_probability: float
+    belief_update_interval: int
     log_path: str
     log_events: bool
 
@@ -35,6 +36,7 @@ class Config:
             opencode_model=os.getenv("OPENCODE_MODEL", "default"),
             total_ticks=int(os.getenv("TOTAL_TICKS", "100")),
             action_probability=float(os.getenv("ACTION_PROBABILITY", "0.7")),
+            belief_update_interval=int(os.getenv("BELIEF_UPDATE_INTERVAL", "5")),
             log_path=os.getenv("LOG_PATH", "logs"),
             log_events=os.getenv("LOG_EVENTS", "true").lower() == "true",
         )

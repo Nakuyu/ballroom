@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import random
 import math
+import sys
 from collections import defaultdict
 
 from .world import World
@@ -110,3 +111,4 @@ def print_metrics(world: World, tick: Optional[int] = None) -> None:
         print(f"  {agent.name} ({agent.faction or 'Independent'}): {score:.2f}")
     print("=" * 60)
     print()
+    sys.stdout.flush()
